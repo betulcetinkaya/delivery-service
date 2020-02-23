@@ -1,0 +1,8 @@
+[
+  {
+    "id": "1",
+    "costPerDelivery": 2,
+    "costPerProduct": 3,
+    "fixedCost": 5
+  }
+]

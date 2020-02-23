@@ -1,0 +1,7 @@
+[
+  {
+    "mapper": "com.assignment.delivery.domain.Delivery",
+    "name": "delivery",
+    "file": "delivery.json"
+  }
+]
