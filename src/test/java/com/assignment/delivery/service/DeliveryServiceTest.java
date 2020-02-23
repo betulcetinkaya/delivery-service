@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -72,6 +73,19 @@ public class DeliveryServiceTest extends ServiceBaseTest {
         Assert.assertEquals(delivery.getCostPerProduct(), found.getCostPerProduct());
         Assert.assertEquals(delivery.getFixedCost(), found.getFixedCost());
     }
+
+    @Test
+    public void testCalculateDeliveryCost_ReturnDeliveryCost() {
+        Delivery delivery = DeliveryTestData.getDelivery();
+        when(deliveryRepository.findById(anyString())).thenReturn(Optional.of(delivery));
+
+        BigDecimal deliveryCost = deliveryService.calculateDeliveryCost(delivery.getId(), 3, 6);
+
+        verify(deliveryRepository).findById(anyString());
+        Assert.assertEquals(new BigDecimal(26), deliveryCost);
+
+    }
+
 
 
 }

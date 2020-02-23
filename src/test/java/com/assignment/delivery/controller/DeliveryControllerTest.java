@@ -15,9 +15,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -64,5 +66,18 @@ public class DeliveryControllerTest extends ControllerBaseTest {
         verify(deliveryService).getById(anyString());
     }
 
+    @Test
+    public void testGetDeliveryCost_SendId_GetDeliveryCost() throws Exception {
+        String deliveryId = "DELIVERY-001";
+        when(deliveryService.calculateDeliveryCost(anyString(), anyInt(), anyInt())).thenReturn(new BigDecimal(15));
+
+        ResultActions resultActions = mockMvc.perform(get(baseAddress + "?id=" + deliveryId
+                + "&numberOfDeliveries=3&numberOfProducts=10")
+                .contentType(mediaType));
+
+        resultActions.andExpect(status().isOk());
+
+        verify(deliveryService).calculateDeliveryCost(anyString(), anyInt(), anyInt());
+    }
 
 }

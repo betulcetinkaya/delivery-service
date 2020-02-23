@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 
 @RestController
@@ -38,5 +40,16 @@ public class DeliveryController {
         Delivery delivery = deliveryService.getById(id);
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
+
+    @GetMapping
+    public
+    @ResponseBody
+    ResponseEntity<BigDecimal> calculateDeliveryCost(@RequestParam(value = "id") String id,
+                                                   @RequestParam(value = "numberOfDeliveries") int numberOfDeliveries,
+                                                   @RequestParam(value = "numberOfProducts") int numberOfProducts) {
+        BigDecimal deliveryCost = deliveryService.calculateDeliveryCost(id, numberOfDeliveries, numberOfProducts);
+        return new ResponseEntity<>(deliveryCost, HttpStatus.OK);
+    }
+
 
 }

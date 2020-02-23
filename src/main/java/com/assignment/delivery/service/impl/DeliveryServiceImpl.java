@@ -7,6 +7,7 @@ import com.assignment.delivery.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,14 @@ public class DeliveryServiceImpl implements DeliveryService {
             throw new DeliveryNotFoundException(id);
         }
         return delivery.get();
+    }
+
+    @Override
+    public BigDecimal calculateDeliveryCost(String id, int numberOfDeliveries, int numberOfProducts) {
+        Delivery delivery = getById(id);
+        BigDecimal deliveryCost = delivery.getCostPerDelivery().multiply(new BigDecimal(numberOfDeliveries));
+        deliveryCost = deliveryCost.add(delivery.getCostPerProduct().multiply(new BigDecimal(numberOfProducts)));
+        deliveryCost = deliveryCost.add(delivery.getFixedCost());
+        return deliveryCost;
     }
 }
