@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "costPerDelivery": 2,
+    "costPerProduct": 3,
+    "fixedCost": 5
+  },
+  {
+    "id": "2",
+    "costPerDelivery": 3,
+    "costPerProduct": 5,
+    "fixedCost": 10
+  },
+  {
+    "id": "3",
+    "costPerDelivery": 2,
+    "costPerProduct": 1,
+    "fixedCost": 5
+  }
+]
